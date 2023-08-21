@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Categoria;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,9 @@ Auth::routes();
 Route::resource('libros', App\Http\Controllers\LibroController::class)->middleware('auth');
 Route::resource('categorias', App\Http\Controllers\CategoriaController::class)->middleware('auth');
 Route::resource('proyectos', App\Http\Controllers\ProyectoController::class)->middleware('auth');
+Route::get('/price/{value}', function($value){
+    $price = Categoria::where('id', $value)->first()->precio;
+    return response()->json(['precio' => $price]);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

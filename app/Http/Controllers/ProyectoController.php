@@ -31,12 +31,14 @@ class ProyectoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $value)
     {
         $proyecto = new Proyecto();
+        $libro = $value->query('libro');
         $libros = Libro::pluck('nombre', 'id');
         $categorias = Categoria::pluck('nombre', 'id');
-        return view('proyecto.create', compact('proyecto', 'libros', 'categorias'));
+        $precios = Categoria::pluck('precio', 'id');
+        return view('proyecto.create', compact('proyecto', 'libros', 'categorias', 'precios', 'libro'));
     }
 
     /**
@@ -50,8 +52,10 @@ class ProyectoController extends Controller
         request()->validate(Proyecto::$rules);
 
         $proyecto = Proyecto::create($request->all());
+        
+        $libro = $request->query('libro');
 
-        return redirect()->route('proyectos.index')
+        return redirect()->to("libros/$libro")
             ->with('success', 'Proyecto created successfully.');
     }
 
@@ -105,9 +109,11 @@ class ProyectoController extends Controller
      */
     public function destroy($id)
     {
+        $location = Proyecto::find($id);
+        $libro = $location->libros_id;
         $proyecto = Proyecto::find($id)->delete();
 
-        return redirect()->route('proyectos.index')
+        return redirect()->route('libros.show', $libro)
             ->with('success', 'Proyecto deleted successfully');
     }
 }

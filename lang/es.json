@@ -57,5 +57,9 @@
     "deleted": "eliminado",
     "successfully": "satisfactoriamente",
     "Libro created successfully.": "Libro creado satisfactoriamente",
-    "Libro deleted successfully": "Libro eliminado satisfactoriamente"
+    "Libro deleted successfully": "Libro eliminado satisfactoriamente",
+    "Show": "Mostrar",
+    "Back": "Volver",
+    "Edit": "Editar",
+    "Delete": "Eliminar"
 }

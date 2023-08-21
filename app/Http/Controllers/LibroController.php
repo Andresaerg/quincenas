@@ -61,9 +61,15 @@ class LibroController extends Controller
     public function show($id)
     {
         $libro = Libro::find($id);
-        $proyectos = Proyecto::paginate();
+        $proyectos = Proyecto::where('libros_id', '=', $id)->paginate();
+        $count = $proyectos->total();
+        $total = 0;
 
-        return view('libro.show', compact('libro', 'proyectos'))
+        foreach ($proyectos as $proyecto) {
+            $total += $proyecto->subtotal;
+        }
+
+        return view('libro.show', compact('libro', 'proyectos', 'count', 'total'))
             ->with('i', (request()->input('page', 1) - 1) * $proyectos->perPage());
     }
 

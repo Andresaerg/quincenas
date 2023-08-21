@@ -24,13 +24,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Proyecto extends Model
 {
-    
+    public function setCantidadAttribute($value)
+    {
+        $this->attributes['Cantidad'] = $value;
+        $this->attributes['subtotal'] = $this->Cantidad * $this->Precio;
+    }
+
+    public function setPrecioAttribute($value)
+    {
+        $this->attributes['Precio'] = $value;
+        $this->attributes['subtotal'] = $this->Cantidad * $this->Precio;
+    }
+
     static $rules = [
 		'libros_id' => 'required',
 		'categorias_id' => 'required',
 		'Nombre' => 'required',
 		'Cantidad' => 'required',
 		'Precio' => 'required',
+        'Encomendado_por' => 'required'
     ];
 
     protected $perPage = 20;

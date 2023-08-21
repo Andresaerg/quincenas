@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $libro->name ?? "{{ __('Show') Libro" }}
+    {{ $libro->name ?? "{{ __('Show') Libro" }} }}
 @endsection
 
 @section('content')
@@ -17,16 +17,30 @@
                             <a class="btn btn-primary" href="{{ route('libros.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Nombre:</strong>
+                            <strong>Nombre del libro:</strong>
                             {{ $libro->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Proyectos:</strong>
-                            @include('proyecto.index')
+                            <strong>Cantidad de proyectos:</strong>
+                            {{ $count }}
+                            <div>
+                                <div style="display: flex; justify-content: center; text-transform: uppercase;">
+                                    <strong>Tabla de proyectos</strong>
+                                </div>
+                                <br>
+                                <div>
+                                    @include('proyecto.index')
+                                </div>
+                            </div>
                         </div>
 
                     </div>
