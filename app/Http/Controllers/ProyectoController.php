@@ -6,6 +6,8 @@ use App\Models\Proyecto;
 use App\Models\Libro;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class ProyectoController
@@ -47,7 +49,7 @@ class ProyectoController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /* public function store(Request $request)
     {
         request()->validate(Proyecto::$rules);
 
@@ -57,7 +59,29 @@ class ProyectoController extends Controller
 
         return redirect()->to("libros/$libro")
             ->with('success', 'Proyecto created successfully.');
+    } */
+
+    public function store(Request $request)
+    {
+        $proyectosData = $request->input('proyectos');
+        $libro = $request->query('libro');
+
+        if ($proyectosData === null) {
+            request()->validate(Proyecto::$rules);
+
+            $proyecto = Proyecto::create($request->all());
+        }else{
+            foreach ($proyectosData as $proyectoData) {
+                Validator::make($proyectoData, Proyecto::$rules)->validate();
+                $proyecto = Proyecto::create($proyectoData);
+            }        
+        }
+    
+        return redirect()->to("libros/$libro")
+            ->with('success', 'Proyectos creados con éxito.');
     }
+    
+
 
     /**
      * Display the specified resource.
@@ -81,8 +105,12 @@ class ProyectoController extends Controller
     public function edit($id)
     {
         $proyecto = Proyecto::find($id);
+        $libro = $proyecto->libros_id;
+        $libros = Libro::pluck('nombre', 'id');
+        $categorias = Categoria::pluck('nombre', 'id');
+        $precios = Categoria::pluck('precio', 'id');
 
-        return view('proyecto.edit', compact('proyecto'));
+        return view('proyecto.edit', compact('proyecto', 'libros', 'categorias', 'precios', 'libro'));
     }
 
     /**
@@ -115,5 +143,12 @@ class ProyectoController extends Controller
 
         return redirect()->route('libros.show', $libro)
             ->with('success', 'Proyecto deleted successfully');
+    }
+
+    public function delete_all($libro){
+        $proyectos = Proyecto::where('libros_id', $libro)->delete();
+
+        return redirect()->route('libros.show', $libro)
+            ->with('success', 'Proyectos deleted succesfully');
     }
 }

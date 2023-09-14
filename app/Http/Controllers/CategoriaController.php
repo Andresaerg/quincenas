@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CategoriaController
@@ -18,9 +19,11 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::paginate();
+        $user_id = Auth::id();
+        $categorias = Categoria::where('user_id', $user_id)->paginate();
+        $total = $categorias->total();
 
-        return view('categoria.index', compact('categorias'))
+        return view('categoria.index', compact('categorias', 'total'))
             ->with('i', (request()->input('page', 1) - 1) * $categorias->perPage());
     }
 
@@ -32,7 +35,8 @@ class CategoriaController extends Controller
     public function create()
     {
         $categoria = new Categoria();
-        return view('categoria.create', compact('categoria'));
+        $user_id = Auth::id();
+        return view('categoria.create', compact('categoria', 'user_id'));
     }
 
     /**
@@ -73,8 +77,9 @@ class CategoriaController extends Controller
     public function edit($id)
     {
         $categoria = Categoria::find($id);
+        $user_id = Auth::id();
 
-        return view('categoria.edit', compact('categoria'));
+        return view('categoria.edit', compact('categoria', 'user_id'));
     }
 
     /**

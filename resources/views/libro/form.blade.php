@@ -11,6 +11,9 @@
             {{ Form::label('Fecha de creación') }}
             {{ Form::label('created_at', now()->format('d/m/Y'), ['class' => 'form-control']) }}
         </div>
+        <div class="form-group">
+            {{ Form::hidden('user_id', $user_id) }}
+        </div>
     <br>
     </div>
     <div class="box-footer mt20">

@@ -58,8 +58,18 @@
     "successfully": "satisfactoriamente",
     "Libro created successfully.": "Libro creado satisfactoriamente",
     "Libro deleted successfully": "Libro eliminado satisfactoriamente",
+    "Categoria created successfully.": "Proyecto creado satisfactoriamente.",
+    "Categoria deleted successfully": "Proyecto eliminado satisfactoriamente.",
+    "Proyecto created successfully.": "Elemento creado satisfactoriamente.",
+    "Proyecto deleted successfully": "Elemento eliminado satisfactoriamente.",
     "Show": "Mostrar",
     "Back": "Volver",
+    "Create": "Crear",
     "Edit": "Editar",
-    "Delete": "Eliminar"
+    "Delete": "Eliminar",
+    "Delete all": "Eliminar todos",
+    "Good morning": "Buenos días",
+    "Good afternoon": "Buenas tardes",
+    "Good evening": "Buenas noches",
+    "Index": "Inicio"
 }

@@ -11,15 +11,22 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Libro</span>
+                            <span class="card-title">{{ __('Showing') }} Libro {{ $libro->id }}</span>
                         </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('libros.index') }}"> {{ __('Back') }}</a>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="float-right">
+                                <a class="btn btn-secondary" href="{{ route('libros.index') }}"> {{ __('Back') }}</a>
+                            </div>
+                            @if ($total > 0)
+                            <div class="float-right">
+                                <a class="btn btn-success" href="{{ route('libros.pdf', $libro->id) }}"><i class="fa fa-fw fa-file-pdf"></i> {{ __('Generar PDF para este libro') }}</a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
-                            <p>{{ $message }}</p>
+                            <p>{{ __($message) }}</p>
                         </div>
                     @endif
 

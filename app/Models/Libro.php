@@ -21,6 +21,7 @@ class Libro extends Model
     
     static $rules = [
 		'nombre' => 'required',
+    'user_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -30,7 +31,7 @@ class Libro extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre'];
+    protected $fillable = ['nombre', 'user_id'];
 
 
     /**

@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Categoria') }}
+                                {{ __('Registro de tabulador para proyectos') }}
                             </span>
 
                             <div class="float-right">
@@ -25,11 +25,14 @@
                     </div>
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
-                            <p>{{ $message }}</p>
+                            <p>{{ __($message) }}</p>
                         </div>
                     @endif
 
                     <div class="card-body">
+                        @if ($total === 0)
+                            <strong>Aún no se han ingresado proyectos</strong>
+                        @elseif ($total > 0)
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
@@ -64,6 +67,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        @endif
                     </div>
                 </div>
                 {!! $categorias->links() !!}

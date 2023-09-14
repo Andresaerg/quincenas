@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -24,7 +25,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'ARQ System') }}
+                    <img src="{{ url('/images/test.jpg') }}" alt="test" style="width:75px; border-radius:50%;">
+                    {{ config('app.name', 'AAR System') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -87,9 +89,85 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="margin-bottom:200px;">
             @yield('content')
         </main>
+        <footer class="bg-light text-center text-white" style="position:absolute;bottom:0;width:100%">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                <!-- Facebook -->
+                <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #3b5998;width:39.73px;"
+                    href="https://www.facebook.com/profile.php?id=100004977435007"
+                    role="button"
+                    target="_blank"
+                    ><i class="fab fa-facebook-f"></i
+                ></a>
+
+                <!-- Twitter -->
+                <!-- <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #55acee;"
+                    href="#!"
+                    role="button"
+                    target="_blank"
+                    ><i class="fab fa-twitter"></i
+                ></a> -->
+
+                <!-- Google -->
+                <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #dd4b39;"
+                    href="mailto:andrescod10@gmail.com"
+                    role="button"
+                    target="_blank"
+                    ><i class="fab fa-google"></i
+                ></a>
+
+                <!-- Instagram -->
+                <!-- <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #ac2bac;"
+                    href="#!"
+                    role="button"
+                    target="_blank"
+                    ><i class="fab fa-instagram"></i
+                ></a> -->
+
+                <!-- Linkedin -->
+                <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #0082ca;"
+                    href="https://www.linkedin.com/in/andrés-rosales-21423125b/"
+                    role="button"
+                    target="_blank"
+                    ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <!-- Github -->
+                <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #333333;"
+                    href="https://github.com/Andresaerg"
+                    role="button"
+                    target="_blank"
+                    ><i class="fab fa-github"></i
+                ></a>
+                </section>
+                <!-- Section: Social media -->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © {{ date('Y') }} Copyright:
+                <a class="text-white" href="https://arcodev.surge.sh/" target="_blank">Arcodev.surge.sh</a>
+                <p>Made with 💙 by AR</p>
+            </div>
+            <!-- Copyright -->
+        </footer>
     </div>
 </body>
 </html>

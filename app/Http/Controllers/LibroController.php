@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Libro;
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
 /**
  * Class LibroController
@@ -19,10 +21,33 @@ class LibroController extends Controller
      */
     public function index()
     {
-        $libros = Libro::paginate();
+        $user_id = Auth::id();
+        $libros = Libro::where('user_id', $user_id)->paginate();
+        $total = $libros->total();
 
-        return view('libro.index', compact('libros'))
+        return view('libro.index', compact('libros', 'total'))
             ->with('i', (request()->input('page', 1) - 1) * $libros->perPage());
+    }
+
+    public function pdf($libro_id)
+    {
+        $user = Auth::user();
+        $proyectos = Proyecto::where('libros_id', $libro_id)->paginate();
+        $libro = Libro::find($libro_id);
+        $total_projects = 0;
+        $total_price = 0;
+
+        foreach ($proyectos as $proyecto) {
+            $total_projects += $proyecto->Cantidad;
+            $total_price += $proyecto->subtotal;
+        }
+
+        $pdf = PDF::loadView('libro.pdf', ['proyectos' => $proyectos, 'user' => $user,
+             'libro' => $libro, 'total_projects' => $total_projects, 'total_price' => $total_price]);
+        
+        $name = $libro->nombre.'_'.$libro->created_at->format('dmY');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        return $pdf->download("$name.pdf");
     }
 
     /**
@@ -33,7 +58,9 @@ class LibroController extends Controller
     public function create()
     {
         $libro = new Libro();
-        return view('libro.create', compact('libro'));
+        $user_id = Auth::id();
+
+        return view('libro.create', compact('libro', 'user_id'));
     }
 
     /**
@@ -82,8 +109,9 @@ class LibroController extends Controller
     public function edit($id)
     {
         $libro = Libro::find($id);
+        $user_id = Auth::id();
 
-        return view('libro.edit', compact('libro'));
+        return view('libro.edit', compact('libro', 'user_id'));
     }
 
     /**

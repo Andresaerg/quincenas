@@ -22,6 +22,7 @@ class Categoria extends Model
     
     static $rules = [
 		'nombre' => 'required',
+    'user_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -31,7 +32,7 @@ class Categoria extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','precio'];
+    protected $fillable = ['nombre', 'user_id','precio'];
 
 
     /**

@@ -28,5 +28,7 @@ Route::get('/price/{value}', function($value){
     $price = Categoria::where('id', $value)->first()->precio;
     return response()->json(['precio' => $price]);
 });
+Route::delete('proyectos/delete_all/{libro}', [App\Http\Controllers\ProyectoController::class, 'delete_all'])->name('proyectos.delete_all');
+Route::get('libros/{libro}/pdf', [App\Http\Controllers\LibroController::class, 'pdf'])->name('libros.pdf');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

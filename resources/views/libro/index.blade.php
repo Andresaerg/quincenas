@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Libro') }}
+                                {{ __('Libros creados') }}
                             </span>
 
                              <div class="float-right">
@@ -25,11 +25,14 @@
                     </div>
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
-                            <p>{{ $message }}</p>
+                            <p>{{ __($message) }}</p>
                         </div>
                     @endif
 
                     <div class="card-body">
+                        @if ($total === 0)
+                            <strong>Aún no se han creado libros</strong>
+                        @elseif ($total > 0)
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
@@ -38,7 +41,7 @@
                                         
 										<th>Nombre</th>
 
-                                        <th>Fecha</th>
+                                        <th>Fecha de creación</th>
 
                                         <th></th>
                                     </tr>
@@ -54,8 +57,10 @@
 
                                             <td>
                                                 <form action="{{ route('libros.destroy',$libro->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('libros.show',$libro->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('libros.edit',$libro->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <!-- @----if ( date('m/Y') == $libro->created_at->format('m/Y') ) -->
+                                                        <a class="btn btn-sm btn-primary " href="{{ route('libros.show',$libro->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                        <a class="btn btn-sm btn-success" href="{{ route('libros.edit',$libro->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <!-- @----endif -->
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -66,6 +71,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        @endif
                     </div>
                 </div>
                 {!! $libros->links() !!}
