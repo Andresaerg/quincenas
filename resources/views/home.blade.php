@@ -40,7 +40,7 @@
                     <br>
                     <h3> {{ config('app.name', 'AAR System') }} 💰</h3>
                     <p>
-                        &#8594; ¡Muestre y genere PDF's sobre los registros de sus proyectos como usted desee!
+                        &#8594; ¡Genere y muestre PDF's sobre los registros de sus proyectos como usted desee!
                         <ul>
                             <li>Agregue al tabulador los proyectos que usted suele hacer.</li>
                             <li>Cree los libros que desee para contener todos sus proyectos.</li>

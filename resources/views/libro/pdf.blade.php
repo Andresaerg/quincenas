@@ -57,29 +57,17 @@
 
         @page{
             margin: 0px;
+            margin-bottom: 50px;
+        }
+        #header { position: fixed; top: 0px; left: 0px; right: 0px; padding: 2rem; background: #efefef;}
+        body{
+            margin-top: 10rem;
         }
     </style>
 </head>
 <body>
-    {{-- <table class="container">
-        <tr>
-            <td>
-                <img src="{{ public_path('images/test.jpg') }}" alt="test" style="width:100px; border-radius:50%;">
-            </td>
-            <td>
-                <h2 class="Logo">Sistema AAR para quincenas</h2>
-                <h6 style="margin-top:0; font-family:'Courier New', monospace; font-style:italic;">by AR</h6>
-            </td>
-            <td>
-                <p>Libro: {{ $libro->nombre }}</p>
-                <p>Nombre de usuario: {{ $user->name }}</p>
-                <p>Fecha de creación del libro: {{ $libro->created_at->format('d/m/Y') }}</p>
-                <p>Fecha actual: {{ date('d/m/Y') }}</p>
-            </td>
-        </tr>
-    </table> --}}
 
-    <div style="padding: 2rem; background: #efefef;">
+    <div id="header">
         <div style="float: left; width: 15%; height: 10%;">
             <img src="{{ public_path('images/test.jpg') }}" alt="test" style="width:100px; border-radius:50%;">
         </div>
@@ -91,30 +79,35 @@
             Fecha actual: {{ date('d/m/Y') }}
             <br>
             Libro: {{ $libro->nombre }}
+            <br>
+            <span>Empleado:</span>
+            <span>{{ $user->name }}</span>
         </div>
     </div>
 
     <div style="margin: 1rem 2rem 0 2rem;">
         <div style="border: 2px solid #4CAF50; margin-bottom: 1rem;"></div>
 
-        <div style="margin-bottom: 10rem;">
-            <div style="float: left; width: 55%; height: auto;">
-                <strong style="font-size:18px;">Empleado</strong>
-                <br>
-                {{ $user->name }}
-                <br><br>
-                <strong style="font-size:18px;">Libro actual</strong>
-                <strong style="font-size:18px;margin-left:80px;">Fecha de creación</strong>
+        <div style="margin-bottom: 5rem;">
+            <div style="float: left; width: auto; min-width:25%; height: auto;">
+                <strong style="">Libro actual:</strong>
                 <br>
                 {{ $libro->nombre }}
-                <span style="font-size:18px;margin-left:65px;">{{ $libro->created_at->format('d/m/Y') }}</span>
             </div>
-            <div style="float: left; width: 5%; height: auto;">
-
+            <div style="float: left; width: auto; min-width:25%; height: auto;">
+                <strong>Fecha de creación:</strong>
+                <br>
+                <span>{{ $libro->created_at->format('d/m/Y') }}</span>
             </div>
-            <div style="float: left; width: 40%; height: auto; text-align:right;">
-                <strong style="text-align: right; padding: 5px;">Total de proyectos: </strong>
-                {{ $total_projects }}
+            <div style="float: left; width: auto; min-width:25%; height: auto;">
+                <strong>Empleado:</strong>
+                <br>
+                <span>{{ $user->name }}</span>
+            </div>
+            <div style="float: left; width: auto; min-width:25%; height: auto;">
+                <strong>Total de proyectos: </strong>
+                <br>
+                <span>{{ $total_projects }}</span>
             </div>
         </div>
 
@@ -128,12 +121,12 @@
                 <thead class="thead">
                     <tr>
                         <th>No</th>
-                        <th>Proyecto</th>
                         <th>Nombre</th>
                         <th>Cantidad</th>
+                        <th>Supervisor</th>
+                        <th>Proyecto</th>
                         <th>Precio Unitario</th>
                         <th>Subtotal</th>
-                        <th>Encomendado Por</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -141,12 +134,12 @@
                     @foreach ($proyectos as $proyecto)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $proyecto->categoria->nombre }}</td>
                             <td>{{ $proyecto->Nombre }}</td>
                             <td>{{ $proyecto->Cantidad }}</td>
+                            <td>{{ $proyecto->Encomendado_por }}</td>
+                            <td>{{ $proyecto->categoria->nombre }}</td>
                             <td>${{ $proyecto->Precio }}</td>
                             <td>${{ $proyecto->subtotal }}</td>
-                            <td>{{ $proyecto->Encomendado_por }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -155,16 +148,9 @@
             <br>
             <!-- Aquí puedes agregar el total -->
             <table align='right'>
-                <{{-- tr>
-                    <td>
-                        <strong style="text-align: right; padding: 5px;">
-                            Total de proyectos: {{ $total_projects }}
-                        </strong>
-                    </td>
-                </tr> --}}
                 <tr>
                     <td>
-                        <strong style="text-align: center; background-color:yellow; padding: 5px; font-size: 25px;">
+                        <strong style="text-align: center; background-color:yellow; padding: 5px; font-size: 20px;">
                             Total: $ {{ $total_price }}
                         </strong>
                     </td>
@@ -180,7 +166,7 @@
             $font = $fontMetrics->getFont("Verdana");
             $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
             $x = ($pdf->get_width() - $width) / 2;
-            $y = $pdf->get_height() - 35;
+            $y = $pdf->get_height() - 25;
             $pdf->page_text($x, $y, $text, $font, $size);
         }
     </script>

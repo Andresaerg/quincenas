@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Libro;
 use App\Models\Proyecto;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -32,6 +33,7 @@ class LibroController extends Controller
     public function pdf($libro_id)
     {
         $user = Auth::user();
+        $user_name = Str::words(Auth::user()->name, 1, '');
         $proyectos = Proyecto::where('libros_id', $libro_id)->paginate();
         $libro = Libro::find($libro_id);
         $total_projects = 0;
@@ -45,9 +47,9 @@ class LibroController extends Controller
         $pdf = PDF::loadView('libro.pdf', ['proyectos' => $proyectos, 'user' => $user,
              'libro' => $libro, 'total_projects' => $total_projects, 'total_price' => $total_price]);
         
-        $name = $libro->nombre.'_'.$libro->created_at->format('dmY');
+        $name = $libro->nombre.'_'.$user_name."-".$libro->created_at->format('dmY');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        return $pdf->download("$name.pdf");
+        return $pdf->stream("$name.pdf");
     }
 
     /**

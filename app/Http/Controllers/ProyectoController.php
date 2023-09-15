@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ProyectoController
@@ -106,8 +107,10 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::find($id);
         $libro = $proyecto->libros_id;
+        $id_user = Auth::id();
         $libros = Libro::pluck('nombre', 'id');
-        $categorias = Categoria::pluck('nombre', 'id');
+        $filtrado = Categoria::select()->where('user_id', $id_user);
+        $categorias = $filtrado->pluck('nombre', 'id');
         $precios = Categoria::pluck('precio', 'id');
 
         return view('proyecto.edit', compact('proyecto', 'libros', 'categorias', 'precios', 'libro'));
@@ -125,8 +128,9 @@ class ProyectoController extends Controller
         request()->validate(Proyecto::$rules);
 
         $proyecto->update($request->all());
+        $libro = $request->query('libro');
 
-        return redirect()->route('proyectos.index')
+        return redirect()->to("libros/$libro")
             ->with('success', 'Proyecto updated successfully');
     }
 
