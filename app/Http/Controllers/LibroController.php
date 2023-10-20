@@ -49,7 +49,7 @@ class LibroController extends Controller
         
         $name = $libro->nombre.'_'.$user_name."-".$libro->created_at->format('dmY');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        return $pdf->stream("$name.pdf");
+        return $pdf->download("$name.pdf");
     }
 
     /**

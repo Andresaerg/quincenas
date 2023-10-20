@@ -20,11 +20,11 @@
 
                     <h1>
 
-                        @if ( (date('h:i:s') >= '04:00:00' && date('h:i:s') < '12:00:00') || (date('H:i:s A') >= '04:00:00 AM' && date('H:i:s A') < '12:00:00 PM') )
+                        @if ( (date('H:i:s') >= '04:00:00' && date('H:i:s') < '12:00:00') )
 
                                 {{ __('Good morning') }}
 
-                        @elseif ( (date('h:i:s') >= '12:00:00' && date('h:i:s') < '18:00:00') || (date('H:i:s A') >= '12:00:00 PM' && date('H:i:s A') < '6:00:00 PM') )
+                        @elseif ( (date('H:i:s') >= '12:00:00' && date('H:i:s') < '19:00:00') )
 
                                 {{ __('Good afternoon') }}
 
