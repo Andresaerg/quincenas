@@ -57,7 +57,7 @@
 
         @page{
             margin: 0px;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
         #header { position: fixed; top: 0px; left: 0px; right: 0px; padding: 2rem; background: #efefef;}
         body{
