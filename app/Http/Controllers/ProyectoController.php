@@ -37,9 +37,10 @@ class ProyectoController extends Controller
     public function create(Request $value)
     {
         $proyecto = new Proyecto();
+        $user_id = Auth::id();
         $libro = $value->query('libro');
         $libros = Libro::pluck('nombre', 'id');
-        $categorias = Categoria::pluck('nombre', 'id');
+        $categorias = Categoria::where('user_id', $user_id)->pluck('nombre', 'id');
         $precios = Categoria::pluck('precio', 'id');
         return view('proyecto.create', compact('proyecto', 'libros', 'categorias', 'precios', 'libro'));
     }
